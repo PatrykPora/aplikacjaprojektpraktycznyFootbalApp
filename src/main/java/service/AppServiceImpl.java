@@ -2,7 +2,11 @@ package service;
 
 import connector.ApiConnector;
 import entity.LeagueEntity;
+import entity.SeasonEntity;
+import entity.TeamEntity;
 import mapper.LeagueMapper;
+import mapper.SeasonMapper;
+import mapper.TeamMapper;
 import model.League;
 import model.Season;
 import model.Team;
@@ -67,11 +71,48 @@ public class AppServiceImpl implements AppService {
 
     @Override
     public List<Team> standingsAfterSeason(String leagueId, int year) {
-        return null;
+
+        List<Team> teamList = apiConnector.standingsAfterSeason(leagueId, year);
+        return teamList;
+        //        List<TeamEntity> teamEntityList = repository.standingsAfterSeason(leagueId, year);
+//
+//        if (teamEntityList.isEmpty()) {
+//            List<Team> teams = apiConnector.standingsAfterSeason(leagueId, year);
+//            teamEntityList = teams.stream()
+//                    .map(TeamMapper::mapTeamToTeamEntity)
+//                    .collect(Collectors.toList());
+//            for (TeamEntity te : teamEntityList) {
+//                repository.save(te);
+//            }
+//            return teams;
+//        } else {
+//            List<Team> teamList = teamEntityList.stream()
+//                    .map(TeamMapper::mapTeamEntityToTeam)
+//                    .collect(Collectors.toList());
+//            return teamList;
+//        }
     }
 
     @Override
     public List<Season> getListofAvailableSeasons(String leagueId) {
-        return null;
+        List<SeasonEntity> seasonEntities = repository.getListofAvailableSeasons(leagueId);
+
+        if (seasonEntities.isEmpty()) {
+            List<Season> seasons = apiConnector.getListofAvailableSeasons(leagueId);
+            seasonEntities = seasons.stream()
+                    .map(SeasonMapper::mapSeasonToSeasonEntity)
+                    .collect(Collectors.toList());
+            for (SeasonEntity se : seasonEntities) {
+                repository.save(se);
+            }
+            return seasons;
+        } else {
+            List<Season> seasonList = seasonEntities.stream()
+                    .map(SeasonMapper::mapSeasonEntityToSeason)
+                    .collect(Collectors.toList());
+            return seasonList;
+        }
     }
+
+
 }

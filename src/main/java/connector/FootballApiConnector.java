@@ -5,6 +5,7 @@ import model.Logos;
 import model.Season;
 import model.Team;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -51,7 +52,7 @@ public class FootballApiConnector implements ApiConnector {
             });
 
 
-        } catch (URISyntaxException | InterruptedException | IOException e) {
+        } catch (URISyntaxException | InterruptedException | IOException | JSONException e) {
             e.printStackTrace();
         }
 
@@ -92,7 +93,7 @@ public class FootballApiConnector implements ApiConnector {
 
             System.out.println(league);
 
-        } catch (URISyntaxException | IOException | InterruptedException e) {
+        } catch (URISyntaxException | IOException | InterruptedException | JSONException e) {
             e.printStackTrace();
         }
         return league;
@@ -127,8 +128,7 @@ public class FootballApiConnector implements ApiConnector {
 
                 winners.add(team);
 
-            } catch (URISyntaxException | IOException | InterruptedException e) {
-
+            } catch (URISyntaxException | IOException | InterruptedException | JSONException e) {
             }
         }
         return winners;
@@ -156,7 +156,7 @@ public class FootballApiConnector implements ApiConnector {
                 team.setName(jteam.getString("name"));
                 standings.add(team);
             });
-        } catch (URISyntaxException | IOException | InterruptedException e) {
+        } catch (URISyntaxException | IOException | InterruptedException | JSONException e) {
             e.printStackTrace();
         }
         return standings;
@@ -185,7 +185,7 @@ public class FootballApiConnector implements ApiConnector {
 
             });
 
-        } catch (URISyntaxException | IOException | InterruptedException e) {
+        } catch (URISyntaxException | IOException | InterruptedException | JSONException e) {
             e.printStackTrace();
         }
         return seasonList;

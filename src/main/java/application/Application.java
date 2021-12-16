@@ -1,10 +1,14 @@
 package application;
 
 import model.League;
+import model.Season;
+import model.Team;
 import service.AppService;
+import service.AppServiceImpl;
 
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Application {
 
@@ -15,7 +19,10 @@ public class Application {
         this.appService = appService;
     }
 
+
+
     public void start() {
+
 
         Scanner scanner = new Scanner(System.in);
         int userChoice = 0;
@@ -28,7 +35,8 @@ public class Application {
             System.out.println("3 - download league object with details and display");
             System.out.println("4 - get list of league champions for selected league for all seasons and display");
             System.out.println("5 - get list of standings after selected season for selected league and display");
-            System.out.println("6 - exit");
+            System.out.println("6 - get list of available seasons for selected league and display");
+            System.out.println("7 - exit");
             userChoice = scanner.nextInt();
             scanner.nextLine();
 
@@ -45,6 +53,9 @@ public class Application {
                     appService.getAllLeagues();
                     System.out.println("enter league id");
                     String leageId = scanner.nextLine();
+
+
+
                     League league = new League();
                     league = appService.leagueDetails(leageId);
                     System.out.println(league);
@@ -52,12 +63,25 @@ public class Application {
                 case 4:
                     break;
                 case 5:
+                    System.out.println("enter leagueId");
+                    String leagueId = scanner.nextLine();
+                    System.out.println("enter year");
+                    int year = scanner.nextInt();
+                    scanner.nextLine();
+                    List<Team> teamList = appService.standingsAfterSeason(leagueId, year);
+                    teamList.forEach(System.out::println);
                     break;
+                case 6:
+                    System.out.println("enter league id");
+                    String leagueID = scanner.nextLine();
+                    List<Season> seasons = appService.getListofAvailableSeasons(leagueID);
+                    seasons.stream().forEach(System.out::println);
                 default:
                     break;
             }
-        } while (userChoice < 6 && userChoice > 0);
+        } while (userChoice < 7 && userChoice > 0);
 
     }
+
 
 }

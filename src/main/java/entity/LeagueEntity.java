@@ -18,6 +18,7 @@ public class LeagueEntity {
     @Embedded
     private LogosEntity logosEntity;
 
+
     public String getId() {
         return id;
     }

@@ -38,7 +38,7 @@ public class FootballRepositoryImpl implements Repository {
 
     @Override
     public List<TeamEntity> standingsAfterSeason(String leagueId, int year) {
-        Query query = sessionFactory.openSession().createQuery("FROM TeamEntity");
+        Query query = sessionFactory.openSession().createQuery("FROM TeamEntity t WHERE t.year = " + year);
         return query.getResultList();
     }
 
