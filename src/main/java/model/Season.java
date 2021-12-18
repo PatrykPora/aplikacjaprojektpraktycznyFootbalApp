@@ -1,6 +1,7 @@
 package model;
 
 public class Season {
+
     private int year;
 
     public int getYear() {

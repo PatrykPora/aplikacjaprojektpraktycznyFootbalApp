@@ -14,8 +14,8 @@
         <property name="hbm2ddl.auto">update</property>
 
         <mapping class="entity.LeagueEntity"/>
-        <mapping class="entity.TeamEntity"/>
         <mapping class="entity.SeasonEntity"/>
+        <mapping class="entity.StandingEntity"/>
 
     </session-factory>
 </hibernate-configuration>

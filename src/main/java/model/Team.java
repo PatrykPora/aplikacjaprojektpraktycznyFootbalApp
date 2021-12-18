@@ -1,10 +1,13 @@
 package model;
 
+import entity.StandingEntity;
+
+import javax.persistence.ManyToOne;
+
 public class Team {
 
     private String name;
     private int year;
-
 
 
     public int getYear() {

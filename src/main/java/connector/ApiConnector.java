@@ -2,6 +2,7 @@ package connector;
 
 import model.League;
 import model.Season;
+import model.Standing;
 import model.Team;
 
 import java.util.List;
@@ -19,4 +20,6 @@ public interface ApiConnector {
     List<Team> standingsAfterSeason(String leagueId, int year);
 
     List<Season> getListofAvailableSeasons(String leagueId);
+
+    Standing standingAfterSeason(String leagueID, int year);
 }

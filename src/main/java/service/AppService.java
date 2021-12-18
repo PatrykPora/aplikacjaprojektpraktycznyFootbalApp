@@ -2,20 +2,23 @@ package service;
 
 import model.League;
 import model.Season;
+import model.Standing;
 import model.Team;
 
 import java.util.List;
 
 public interface AppService {
 
-    public List<League> getAllLeagues();
+    List<League> getAllLeagues();
 
 
-    public League leagueDetails(String id);
+    League leagueDetails(String id);
 
-    public List<Team> winnerTeamOfSeasons(String leagueId);
+    List<Team> winnerTeamOfSeasons(String leagueId);
 
-    public List<Team> standingsAfterSeason(String leagueId, int year);
+    List<Team> standingsAfterSeason(String leagueId, int year);
 
-    public List<Season> getListofAvailableSeasons(String leagueId);
+    List<Season> getListofAvailableSeasons(String leagueId);
+
+    Standing standingAfterSeason(String leagueID, int year);
 }

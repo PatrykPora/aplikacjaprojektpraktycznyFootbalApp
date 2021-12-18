@@ -1,9 +1,7 @@
 package repository;
 
-import entity.LeagueEntity;
-import entity.LogosEntity;
-import entity.SeasonEntity;
-import entity.TeamEntity;
+import entity.*;
+import model.Standing;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -42,10 +40,29 @@ public class FootballRepositoryImpl implements Repository {
         return query.getResultList();
     }
 
+
+    @Override
+    public StandingEntity standingAfterSeason(String leagueID, int year) {
+        StandingEntity standing = new StandingEntity();
+        Query query = sessionFactory.openSession().createQuery("FROM StandingEntity st WHERE st.leagueTable = ");
+
+        return null;
+    }
+
     @Override
     public List<SeasonEntity> getListofAvailableSeasons(String leagueId) {
         Query query = sessionFactory.openSession().createQuery("FROM SeasonEntity");
         return query.getResultList();
+    }
+
+    @Override
+    public StandingEntity save(StandingEntity standingEntity) {
+        try (Session session = sessionFactory.openSession()){
+            Transaction transaction = session.beginTransaction();
+            session.persist(standingEntity);
+            transaction.commit();
+        }
+        return standingEntity;
     }
 
     @Override

@@ -1,9 +1,7 @@
 package connector;
 
-import model.League;
-import model.Logos;
-import model.Season;
-import model.Team;
+import entity.LeagueTableEntity;
+import model.*;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -134,6 +132,7 @@ public class FootballApiConnector implements ApiConnector {
         return winners;
     }
 
+    @Deprecated
     public List<Team> standingsAfterSeason(String leagueId, int year) {
 
         List<Team> standings = new ArrayList<>();
@@ -160,6 +159,44 @@ public class FootballApiConnector implements ApiConnector {
             e.printStackTrace();
         }
         return standings;
+    }
+
+    public Standing standingAfterSeason(String leagueID, int year) {
+        Standing standing = new Standing();
+        LeagueTable leagueTable = new LeagueTable();
+        leagueTable.setLeagueID(leagueID);
+        leagueTable.setYear(year);
+        standing.setLeagueTable(leagueTable);
+        List<Team> teamList = new ArrayList<>();
+
+        try {
+
+            HttpRequest httpRequest = HttpRequest.newBuilder()
+                    .uri(new URI(URL + "leagues/" + leagueID + "/standings?season=" + year + "&sort=asc"))
+                    .GET().build();
+            HttpResponse httpResponse = HttpClient.newHttpClient()
+                    .send(httpRequest, HttpResponse.BodyHandlers.ofString());
+
+            JSONObject jsonObject = new JSONObject(httpResponse.body().toString());
+            JSONObject data = jsonObject.getJSONObject("data");
+            JSONArray jsonArray = data.getJSONArray("standings");
+
+            jsonArray.iterator().forEachRemaining(s -> {
+                Team team = new Team();
+                team.setYear(year);
+                JSONObject object = (JSONObject) s;
+                JSONObject jteam = object.getJSONObject("team");
+                team.setName(jteam.getString("name"));
+                teamList.add(team);
+
+            });
+
+            standing.setTeamList(teamList);
+        } catch (URISyntaxException | IOException | InterruptedException | JSONException e) {
+            e.printStackTrace();
+        }
+
+        return standing;
     }
 
     public List<Season> getListofAvailableSeasons(String leagueId) {

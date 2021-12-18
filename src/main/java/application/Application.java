@@ -53,9 +53,6 @@ public class Application {
                     appService.getAllLeagues();
                     System.out.println("enter league id");
                     String leageId = scanner.nextLine();
-
-
-
                     League league = new League();
                     league = appService.leagueDetails(leageId);
                     System.out.println(league);
@@ -68,8 +65,7 @@ public class Application {
                     System.out.println("enter year");
                     int year = scanner.nextInt();
                     scanner.nextLine();
-                    List<Team> teamList = appService.standingsAfterSeason(leagueId, year);
-                    teamList.forEach(System.out::println);
+
                     break;
                 case 6:
                     System.out.println("enter league id");

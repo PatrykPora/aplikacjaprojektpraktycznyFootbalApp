@@ -9,6 +9,7 @@ import mapper.SeasonMapper;
 import mapper.TeamMapper;
 import model.League;
 import model.Season;
+import model.Standing;
 import model.Team;
 import repository.Repository;
 
@@ -72,25 +73,25 @@ public class AppServiceImpl implements AppService {
     @Override
     public List<Team> standingsAfterSeason(String leagueId, int year) {
 
-        List<Team> teamList = apiConnector.standingsAfterSeason(leagueId, year);
-        return teamList;
-        //        List<TeamEntity> teamEntityList = repository.standingsAfterSeason(leagueId, year);
-//
-//        if (teamEntityList.isEmpty()) {
-//            List<Team> teams = apiConnector.standingsAfterSeason(leagueId, year);
-//            teamEntityList = teams.stream()
-//                    .map(TeamMapper::mapTeamToTeamEntity)
-//                    .collect(Collectors.toList());
-//            for (TeamEntity te : teamEntityList) {
-//                repository.save(te);
-//            }
-//            return teams;
-//        } else {
-//            List<Team> teamList = teamEntityList.stream()
-//                    .map(TeamMapper::mapTeamEntityToTeam)
-//                    .collect(Collectors.toList());
-//            return teamList;
-//        }
+//        List<Team> teamList = apiConnector.standingsAfterSeason(leagueId, year);
+//        return teamList;
+                List<TeamEntity> teamEntityList = repository.standingsAfterSeason(leagueId, year);
+
+        if (teamEntityList.isEmpty()) {
+            List<Team> teams = apiConnector.standingsAfterSeason(leagueId, year);
+            teamEntityList = teams.stream()
+                    .map(TeamMapper::mapTeamToTeamEntity)
+                    .collect(Collectors.toList());
+            for (TeamEntity te : teamEntityList) {
+                repository.save(te);
+            }
+            return teams;
+        } else {
+            List<Team> teamList = teamEntityList.stream()
+                    .map(TeamMapper::mapTeamEntityToTeam)
+                    .collect(Collectors.toList());
+            return teamList;
+        }
     }
 
     @Override
@@ -112,6 +113,11 @@ public class AppServiceImpl implements AppService {
                     .collect(Collectors.toList());
             return seasonList;
         }
+    }
+
+    @Override
+    public Standing standingAfterSeason(String leagueID, int year) {
+        return null;
     }
 
 

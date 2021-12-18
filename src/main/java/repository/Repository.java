@@ -1,11 +1,9 @@
 package repository;
 
-import entity.LeagueEntity;
-import entity.LogosEntity;
-import entity.SeasonEntity;
-import entity.TeamEntity;
+import entity.*;
 import model.League;
 import model.Season;
+import model.Standing;
 import model.Team;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -29,7 +27,11 @@ public interface Repository {
 
     List<TeamEntity> standingsAfterSeason(String leagueId, int year);
 
+    StandingEntity standingAfterSeason(String leagueID, int year);
+
     List<SeasonEntity> getListofAvailableSeasons(String leagueId);
+
+    StandingEntity save(StandingEntity standingEntity);
 
     LeagueEntity save(LeagueEntity leagueEntity);
 
