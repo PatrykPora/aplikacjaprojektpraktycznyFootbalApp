@@ -5,6 +5,7 @@ import model.Standing;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import java.util.List;
 
@@ -43,11 +44,16 @@ public class FootballRepositoryImpl implements Repository {
 
     @Override
     public StandingEntity standingAfterSeason(String leagueID, int year) {
+        LeagueTableEntity leagueTableEntity = new LeagueTableEntity();
+        leagueTableEntity.setLeagueID(leagueID);
+        leagueTableEntity.setYear(year);
         StandingEntity standing = new StandingEntity();
-        Query query = sessionFactory.openSession().createQuery("FROM StandingEntity st WHERE st.leagueTable = ");
-
-        return null;
+        try (Session session = sessionFactory.openSession()) {
+            standing = session.find(StandingEntity.class, leagueTableEntity);
+            return standing;
+        }
     }
+
 
     @Override
     public List<SeasonEntity> getListofAvailableSeasons(String leagueId) {

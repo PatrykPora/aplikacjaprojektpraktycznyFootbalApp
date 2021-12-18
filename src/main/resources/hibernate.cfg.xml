@@ -16,6 +16,7 @@
         <mapping class="entity.LeagueEntity"/>
         <mapping class="entity.SeasonEntity"/>
         <mapping class="entity.StandingEntity"/>
+        <mapping class="model.Team"/>
 
     </session-factory>
 </hibernate-configuration>

@@ -3,6 +3,7 @@ package service;
 import connector.ApiConnector;
 import entity.LeagueEntity;
 import entity.SeasonEntity;
+import entity.StandingEntity;
 import entity.TeamEntity;
 import mapper.LeagueMapper;
 import mapper.SeasonMapper;
@@ -95,6 +96,21 @@ public class AppServiceImpl implements AppService {
     }
 
     @Override
+    public Standing standingAfterSeason(String leagueID, int year) {
+        StandingEntity standingEntity = new StandingEntity();
+        standingEntity = repository.standingAfterSeason(leagueID,year);
+
+        if (standingEntity == null) {
+
+
+        }
+
+
+        Standing standing = new Standing();
+        return standing;
+    }
+
+    @Override
     public List<Season> getListofAvailableSeasons(String leagueId) {
         List<SeasonEntity> seasonEntities = repository.getListofAvailableSeasons(leagueId);
 
@@ -113,11 +129,6 @@ public class AppServiceImpl implements AppService {
                     .collect(Collectors.toList());
             return seasonList;
         }
-    }
-
-    @Override
-    public Standing standingAfterSeason(String leagueID, int year) {
-        return null;
     }
 
 

@@ -2,10 +2,14 @@ package model;
 
 import entity.StandingEntity;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+@Entity
 public class Team {
 
+    @Id
     private String name;
     private int year;
 

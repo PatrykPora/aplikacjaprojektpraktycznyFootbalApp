@@ -2,6 +2,7 @@ package application;
 
 import model.League;
 import model.Season;
+import model.Standing;
 import model.Team;
 import service.AppService;
 import service.AppServiceImpl;
@@ -65,7 +66,9 @@ public class Application {
                     System.out.println("enter year");
                     int year = scanner.nextInt();
                     scanner.nextLine();
-
+                    Standing standing = new Standing();
+                    standing = appService.standingAfterSeason(leagueId, year);
+                    System.out.println(standing);
                     break;
                 case 6:
                     System.out.println("enter league id");

@@ -3,10 +3,7 @@ package entity;
 import model.LeagueTable;
 import model.Team;
 
-import javax.persistence.CascadeType;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -15,7 +12,7 @@ public class StandingEntity {
     @EmbeddedId
     private LeagueTableEntity leagueTable;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     List<Team> teamList;
 
     public LeagueTableEntity getLeagueTable() {
