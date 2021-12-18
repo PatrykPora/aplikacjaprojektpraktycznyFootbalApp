@@ -3,6 +3,7 @@ package entity;
 
 public class TeamEntity {
 
+
     private String name;
 
     private int year;

@@ -12,7 +12,7 @@ public class StandingEntity {
     @EmbeddedId
     private LeagueTableEntity leagueTable;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     List<Team> teamList;
 
     public LeagueTableEntity getLeagueTable() {

@@ -7,6 +7,7 @@ import entity.StandingEntity;
 import entity.TeamEntity;
 import mapper.LeagueMapper;
 import mapper.SeasonMapper;
+import mapper.StandingMapper;
 import mapper.TeamMapper;
 import model.League;
 import model.Season;
@@ -102,12 +103,15 @@ public class AppServiceImpl implements AppService {
 
         if (standingEntity == null) {
 
-
+            Standing standing = apiConnector.standingAfterSeason(leagueID,year);
+            standingEntity = StandingMapper.mapStandingToStandingEntity(standing);
+            repository.save(standingEntity);
+            return standing;
+        } else {
+            Standing standing = new Standing();
+            standing = StandingMapper.mapStandingEntityToStanding(standingEntity);
+            return standing;
         }
-
-
-        Standing standing = new Standing();
-        return standing;
     }
 
     @Override
